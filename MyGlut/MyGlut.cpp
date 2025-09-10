@@ -7,6 +7,38 @@
 
 using namespace std;
 
+// 전역 변수
+GLfloat red = 1.0f; // 0.0f(없음)~1.0f(빨강)까지 변화
+GLfloat green = 1.0f;
+GLfloat blue = 1.0f;
+
+// OpenGL 프로그래밍: OpenGL 좌표계(오른손: 수학) = Unity 좌표계(왼손: CG)
+void renderScene()
+{
+	glClear(GL_COLOR_BUFFER_BIT); // color buffer를 초기화(검정색)
+	glColor3f(red, green, blue); // 색깔을 RGB로 설정
+
+	// 객체(모델) 정의
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-0.8f, 0.0f, 0.0f); // 1번 꼭지점(vertex)
+	glVertex3f(0.8f, 0.0f, 0.0f); // 2번 꼭지점(vertex)
+	glVertex3f(0.0f, 0.8f, 0.0f); // 3번 꼭지점(vertex)
+	glEnd();
+
+	glFlush(); // 픽셀 그리기
+}
+
+void keyInput(unsigned char key, int x, int y) // x, y는 키가 눌러질 때의 마우스 위치
+{
+	if (key == 'r')
+	{
+		red = 1.0f;
+		green = 0.0f;
+		blue = 0.0f;
+	}
+	// 특별한 호출을 하지 않아도 씬이 갱신됨
+}
+
 int main(int argc, char** argv)
 {
 	// GLUT 초기화
@@ -16,6 +48,11 @@ int main(int argc, char** argv)
 	glutInitWindowSize(640, 320);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE); // 색깔은 RGBA로 설정; 버퍼는 single buffer 선택
 	glutCreateWindow("My GLUT"); // 캡션 My GLUT으로 윈도우 생성
+
+	glutDisplayFunc(renderScene); // rendering에 사용할 함수 포인터 전달
+	glutKeyboardFunc(keyInput);	// 키보드 입력 처리기(message handler, callback)
+
+	glutMainLoop();
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
