@@ -12,8 +12,10 @@ GLfloat red = 1.0f; // 0.0f(없음)~1.0f(빨강)까지 변화
 GLfloat green = 1.0f;
 GLfloat blue = 1.0f;
 
-GLfloat fps = 120.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
+GLfloat fps = 200.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
 GLfloat deltaTimeMsec = 1000.0f/fps; // 프레임 사이의 시간 간격(delta time): 단위 msec(윈도우가 쓰는 시간의 기본 단위)
+
+int timePrev = 0; // 이전 측정 시간
 
 // OpenGL 프로그래밍: OpenGL 좌표계(오른손: 수학) = Unity 좌표계(왼손: CG)
 void renderScene()
@@ -34,11 +36,17 @@ void renderScene()
 
 void updateScene()
 {
-	// 해결책: 게임처럼 프레임 구조로 rendering
 	//cout << "update ";
-	//renderScene();
+
+	// 해결책: 게임처럼 프레임 구조로 rendering
 	// 시간 측정: clock() 등 여러 가지 방법
 	int timeNow = glutGet(GLUT_ELAPSED_TIME); // GLUT 기준으로 경과한 시간을 msec 단위로 얻기(get)
+	if (timeNow - timePrev >= deltaTimeMsec) // 프레임 렌더링 시작
+	{
+		//renderScene(); // 렌더링 함수 직접 호출
+		glutPostRedisplay(); // 렌더링을 메시지로 간접 호출
+		timePrev = timeNow;
+	}
 }
 
 void keyInput(unsigned char key, int x, int y) // x, y는 키가 눌러질 때의 마우스 위치
@@ -79,6 +87,7 @@ int main(int argc, char** argv)
 	glutIdleFunc(updateScene);	// timer 메시지가 발생할 때 호출할 함수 등록 
 	glutKeyboardFunc(keyInput);	// 키보드 입력 처리기(message handler, callback)
 
+	int timePrev = glutGet(GLUT_ELAPSED_TIME); // 이전 시간 초기화
 	glutMainLoop();
 }
 
