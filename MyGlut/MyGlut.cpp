@@ -12,6 +12,9 @@ GLfloat red = 1.0f; // 0.0f(없음)~1.0f(빨강)까지 변화
 GLfloat green = 1.0f;
 GLfloat blue = 1.0f;
 
+GLfloat angle = 0.0f;
+GLfloat rotSpeedMsec = 180.0f / 1000.0f; // 1초(1,000 msec) 동안 회전하는 각도
+
 GLfloat fps = 200.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
 GLfloat deltaTimeMsec = 1000.0f/fps; // 프레임 사이의 시간 간격(delta time): 단위 msec(윈도우가 쓰는 시간의 기본 단위)
 
@@ -22,6 +25,10 @@ void renderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT); // color buffer를 초기화(검정색)
 	glColor3f(red, green, blue); // 색깔을 RGB로 설정
+	glPushMatrix();
+	glLoadIdentity(); // 항등 행렬로 초기화
+
+	glRotatef(angle, 0.0f, 1.0f, 0.0f); // y 벡터 (0, 1, 0)를 기준으로 회전
 
 	// 객체(모델) 정의
 	glBegin(GL_TRIANGLES);
@@ -30,8 +37,14 @@ void renderScene()
 	glVertex3f(0.0f, 0.8f, 0.0f); // 3번 꼭지점(vertex)
 	glEnd();
 
+	glPopMatrix();
 	glFlush(); // 픽셀 그리기 요청: 모든 그리기 종료를 기다리지 않음
 	//glFinish(); // 펙셀 그리기 완성: 모든 그리기 종료까지 기다림; glFinish()가 호출되면 모든 그림(렌더링)이 완성됨
+
+	GLfloat dangle = rotSpeedMsec*deltaTimeMsec;
+	angle += dangle;
+	// 각도 범위 제한: 0도~360도
+	if (angle >= 360.0f) angle -= 360.0f;
 }
 
 void updateScene()
