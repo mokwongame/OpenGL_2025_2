@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyGlut.cpp">
+    <ClCompile Include="MyGlut%28single%29.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGlut(double).cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

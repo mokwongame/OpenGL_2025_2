@@ -124,7 +124,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MyGlut.cpp" />
+    <ClCompile Include="MyGlut%28single%29.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="MyGlut(double).cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
