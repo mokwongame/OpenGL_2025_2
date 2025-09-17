@@ -14,8 +14,9 @@ GLfloat blue = 1.0f;
 
 GLfloat angle = 0.0f;
 GLfloat rotSpeedMsec = 180.0f / 1000.0f; // 1초(1,000 msec) 동안 회전하는 각도
+int nRotDir = 1; // 회전 방향
 
-GLfloat fps = 200.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
+GLfloat fps = 20.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
 GLfloat deltaTimeMsec = 1000.0f/fps; // 프레임 사이의 시간 간격(delta time): 단위 msec(윈도우가 쓰는 시간의 기본 단위)
 
 int timePrev = 0; // 이전 측정 시간
@@ -42,9 +43,11 @@ void renderScene()
 	//glFinish(); // 펙셀 그리기 완성: 모든 그리기 종료까지 기다림; glFinish()가 호출되면 모든 그림(렌더링)이 완성됨
 
 	GLfloat dangle = rotSpeedMsec*deltaTimeMsec;
-	angle += dangle;
+	angle += nRotDir*dangle;
 	// 각도 범위 제한: 0도~360도
 	if (angle >= 360.0f) angle -= 360.0f;
+	else if (angle < 0.0f) angle += 360.0f;
+	//cout << angle << "|";
 }
 
 void updateScene()
@@ -82,6 +85,18 @@ void keyInput(unsigned char key, int x, int y) // x, y는 키가 눌러질 때�
 		red = 0.0f;
 		green = 0.0f;
 		blue = 1.0f;
+	}
+	else if (key == '+')
+	{
+		nRotDir = 1; // 정방향
+	}
+	else if (key == '-')
+	{
+		nRotDir = -1; // 역방향
+	}
+	else if (key == 27) // Esc의 ASCII: 27
+	{
+		exit(0); // 콘솔 앱 종료
 	}
 	// 특별한 호출을 하지 않아도 씬이 갱신됨
 }
