@@ -21,15 +21,15 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// 대화 상자 데이터입니다.
+	// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-// 구현입니다.
+	// 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -101,12 +101,13 @@ BOOL CMyModelerDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	// 스크린 초기화
+	// 스크린 초기화(생성)
 	CWnd* pWnd = GetDlgItem(IDC_SCREEN);
 	pWnd->ShowWindow(SW_HIDE);
 	CRect rect;
-	pWnd->GetClientRect(rect);
-	m_screen.Create(NULL, WS_VISIBLE, rect, this); // 스크린 생성
+	pWnd->GetWindowRect(rect); // 스크린(문서) 좌표계를 기준으로 현재 pWnd의 사각형 영역 얻기
+	ScreenToClient(rect); // 스크린 좌표계 -> dialog의 client 좌표계로 변환
+	m_screen.Create(NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rect, this); // 스크린 생성
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
