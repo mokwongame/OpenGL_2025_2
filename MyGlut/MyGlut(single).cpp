@@ -16,7 +16,7 @@ GLfloat angle = 0.0f;
 GLfloat rotSpeedMsec = 180.0f / 1000.0f; // 1초(1,000 msec) 동안 회전하는 각도
 int nRotDir = 1; // 회전 방향
 
-GLfloat fps = 200.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
+GLfloat fps = 20.0f; // frame per second(초당 렌더링할 프레임 수) -> 초당 glFlush() 호출수
 GLfloat deltaTimeMsec = 1000.0f/fps; // 프레임 사이의 시간 간격(delta time): 단위 msec(윈도우가 쓰는 시간의 기본 단위)
 
 int timePrev = 0; // 이전 측정 시간
@@ -24,7 +24,7 @@ int timePrev = 0; // 이전 측정 시간
 // OpenGL 프로그래밍: OpenGL 좌표계(오른손: 수학) = Unity 좌표계(왼손: CG)
 void renderScene()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // color buffer와 depth buffer를 초기화(검정색)
+	glClear(GL_COLOR_BUFFER_BIT); // color buffer를 초기화(검정색)
 	glColor3f(red, green, blue); // 색깔을 RGB로 설정
 	glPushMatrix();
 	glLoadIdentity(); // 항등 행렬로 초기화
@@ -39,7 +39,8 @@ void renderScene()
 	glEnd();
 
 	glPopMatrix();
-	glutSwapBuffers(); // double buffering의 갱신
+	glFlush(); // 픽셀 그리기 요청: 모든 그리기 종료를 기다리지 않음
+	//glFinish(); // 펙셀 그리기 완성: 모든 그리기 종료까지 기다림; glFinish()가 호출되면 모든 그림(렌더링)이 완성됨
 
 	GLfloat dangle = rotSpeedMsec*deltaTimeMsec;
 	angle += nRotDir*dangle;
@@ -107,7 +108,7 @@ int main(int argc, char** argv)
 	// Window 위치 설정: GLUT 좌표계 = MFC 좌표계
 	glutInitWindowPosition(10, 10);
 	glutInitWindowSize(640, 320);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // 색깔은 RGBA로 설정; 버퍼는 double buffer 선택; depth buffer 선택
+	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE); // 색깔은 RGBA로 설정; 버퍼는 single buffer 선택
 	glutCreateWindow("My GLUT"); // 캡션 My GLUT으로 윈도우 생성
 
 	glutDisplayFunc(renderScene); // rendering에 사용할 함수 포인터 전달
@@ -115,7 +116,6 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyInput);	// 키보드 입력 처리기(message handler, callback)
 
 	int timePrev = glutGet(GLUT_ELAPSED_TIME); // 이전 시간 초기화
-	glEnable(GL_DEPTH_TEST);
 	glutMainLoop();
 }
 
