@@ -1,4 +1,4 @@
 chcp 65001
 git add --all
-git commit -m "RC로 OpenGL 사용 준비"
+git commit -m "배경색과 삼각형색 설정"
 git push -u origin main

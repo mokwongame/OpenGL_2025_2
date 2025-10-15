@@ -1,8 +1,13 @@
 #pragma once
 #include <afxwin.h>
+#include <GL/glew.h>
+
 class OglScreen :
 	public CStatic
 {
+public:
+	static void colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color);
+
 protected:
 	HDC m_hDC = NULL;      // OpenGL용 RC를 위한 DC의 핸들(handle)
 	HGLRC m_hRC = NULL;    // OpenGL용 RC(rendering context)의 핸들(handle)

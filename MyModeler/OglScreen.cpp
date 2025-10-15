@@ -2,6 +2,14 @@
 #include "OglScreen.h"
 #include <GL/GLU.h>
 
+void OglScreen::colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color)
+{
+	// OpenGL 색깔 범위: 0~1, COLORREF 색깔 범위: 0~255
+	r = GetRValue(color) / GLfloat(255);
+	g = GetGValue(color) / GLfloat(255);
+	b = GetBValue(color) / GLfloat(255);
+}
+
 void OglScreen::AdjustPixelFormat(void)
 {
 	// 구조체 초기화

@@ -13,7 +13,6 @@
 #define new DEBUG_NEW
 #endif
 
-
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 
 class CAboutDlg : public CDialogEx
@@ -60,12 +59,15 @@ CMyModelerDlg::CMyModelerDlg(CWnd* pParent /*=nullptr*/)
 void CMyModelerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_MFCCOLORBUTTON1, m_btBackColor);
+	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btTriColor);
 }
 
 BEGIN_MESSAGE_MAP(CMyModelerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CMyModelerDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -108,6 +110,10 @@ BOOL CMyModelerDlg::OnInitDialog()
 	pWnd->GetWindowRect(rect); // 스크린(문서) 좌표계를 기준으로 현재 pWnd의 사각형 영역 얻기
 	ScreenToClient(rect); // 스크린 좌표계 -> dialog의 client 좌표계로 변환
 	m_screen.Create(NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rect, this); // 스크린 생성
+
+	// 변수 초기화
+	m_btBackColor.SetColor(DEF_BACK_COLOR);
+	m_btTriColor.SetColor(DEF_TRI_COLOR);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -161,3 +167,14 @@ HCURSOR CMyModelerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+// 그리기
+void CMyModelerDlg::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	COLORREF nBackColor = m_btBackColor.GetColor();
+	m_screen.SetBackColor(nBackColor);
+	COLORREF nTriColor = m_btTriColor.GetColor();
+	m_screen.SetTriColor(nTriColor);
+
+	m_screen.Invalidate(FALSE); // WM_PAINT 메시지 생성
+}
