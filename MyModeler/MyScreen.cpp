@@ -8,6 +8,8 @@ MyScreen::MyScreen(void)
 	m_nTriColor = DEF_TRI_COLOR;
 	m_fps = DEF_FPS;
 	m_nFrameTimeMs = int(1000.0f / m_fps); // 단위: msec
+	m_angle = 0.0f;
+	m_angStep = 0.0f;
 }
 
 void MyScreen::RenderScene(void)
@@ -22,12 +24,19 @@ void MyScreen::RenderScene(void)
 	OglScreen::colorrefToRgb(r, g, b, m_nTriColor);
 	glColor3f(r, g, b); // 삼각형 색 설정
 
+	glPushMatrix();
+	glLoadIdentity();
+	glRotatef(m_angle, 0.0f, 1.0f, 0.0f); // y축 기준으로 m_angle만큼 회전
+
 	glBegin(GL_TRIANGLES);
 	glVertex3f(-0.8f, -0.5f, 0.0f); // 1번 꼭지점(vertex)
 	glVertex3f(0.8f, -0.5f, 0.0f); // 2번 꼭지점(vertex)
 	glVertex3f(0.0f, 0.8f, 0.0f); // 3번 꼭지점(vertex)
 	glEnd();
+
+	glPopMatrix();
 }
+
 BEGIN_MESSAGE_MAP(MyScreen, OglScreen)
 	ON_WM_TIMER()
 	ON_WM_CREATE()
@@ -39,7 +48,9 @@ void MyScreen::OnTimer(UINT_PTR nIDEvent)
 	if (nIDEvent == TIMERID_RENDER)
 	{
 		// 삼각형 회전
-
+		m_angle += m_angStep;
+		if (m_angle > 360.0f) m_angle -= 360.0f;
+		else if (m_angle < 0.0f) m_angle += 360.0f;
 		// WM_PAINT 메시지 생성
 		Invalidate(FALSE);
 	}

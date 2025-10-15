@@ -12,8 +12,10 @@ class MyScreen :
 public:
 	MyScreen(void);
 
+	GLfloat GetAngStep(void) const { return m_angStep; }
 	void SetBackColor(COLORREF color) { m_nBackColor = color; }
 	void SetTriColor(COLORREF color) { m_nTriColor = color; }
+	void SetAngStep(GLfloat step) { m_angStep = step; }
 
 protected:
 	virtual void RenderScene(void);
@@ -21,6 +23,7 @@ protected:
 	COLORREF m_nBackColor;
 	COLORREF m_nTriColor;
 	GLfloat m_fps;
+	GLfloat m_angle, m_angStep;
 	int m_nFrameTimeMs;
 public:
 	DECLARE_MESSAGE_MAP()

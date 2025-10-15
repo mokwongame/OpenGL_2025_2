@@ -52,6 +52,7 @@ END_MESSAGE_MAP()
 
 CMyModelerDlg::CMyModelerDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MYMODELER_DIALOG, pParent)
+	, m_nDir(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -61,6 +62,8 @@ void CMyModelerDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON1, m_btBackColor);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btTriColor);
+	DDX_CBIndex(pDX, IDC_COMBO1, m_nDir);
+	DDX_Control(pDX, IDC_SLIDER1, m_slAngStep);
 }
 
 BEGIN_MESSAGE_MAP(CMyModelerDlg, CDialogEx)
@@ -114,6 +117,8 @@ BOOL CMyModelerDlg::OnInitDialog()
 	// 변수 초기화
 	m_btBackColor.SetColor(DEF_BACK_COLOR);
 	m_btTriColor.SetColor(DEF_TRI_COLOR);
+	m_slAngStep.SetRange(0, 40);
+	m_slAngStep.SetPos(0);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -171,10 +176,15 @@ HCURSOR CMyModelerDlg::OnQueryDragIcon()
 void CMyModelerDlg::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
 	COLORREF nBackColor = m_btBackColor.GetColor();
 	m_screen.SetBackColor(nBackColor);
 	COLORREF nTriColor = m_btTriColor.GetColor();
 	m_screen.SetTriColor(nTriColor);
+
+	GLfloat angStep = GLfloat(m_slAngStep.GetPos());
+	if (m_nDir == 1) angStep = -angStep;
+	m_screen.SetAngStep(angStep);
 
 	m_screen.Invalidate(FALSE); // WM_PAINT 메시지 생성
 }

@@ -37,4 +37,6 @@ public:
 	afx_msg void OnBnClickedButton1();
 	CMFCColorButton m_btBackColor;
 	CMFCColorButton m_btTriColor;
+	int m_nDir;
+	CSliderCtrl m_slAngStep;
 };
