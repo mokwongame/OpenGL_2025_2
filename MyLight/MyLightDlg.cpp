@@ -20,15 +20,15 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// 대화 상자 데이터입니다.
+	// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-// 구현입니다.
+	// 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -59,12 +59,15 @@ CMyLightDlg::CMyLightDlg(CWnd* pParent /*=nullptr*/)
 void CMyLightDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_MFCCOLORBUTTON1, m_btBackColor);
+	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btSphereColor);
 }
 
 BEGIN_MESSAGE_MAP(CMyLightDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CMyLightDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -100,6 +103,9 @@ BOOL CMyLightDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	m_screen.Create(IDC_SCREEN, this);
+	m_btBackColor.SetColor(DEF_BACK_COLOR);
+	m_btSphereColor.SetColor(DEF_SPHERE_COLOR);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -153,3 +159,11 @@ HCURSOR CMyLightDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+// 그리기
+void CMyLightDlg::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_screen.m_nBackColor = m_btBackColor.GetColor();
+	m_screen.m_nSphereColor = m_btSphereColor.GetColor();
+	m_screen.Invalidate(FALSE);
+}

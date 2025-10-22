@@ -53,12 +53,25 @@ void OglScreen::InitOpenGL(void)
 
 	// OpenGL 코드
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE); // 특정 면(face)을 도태시키기(cull)를 가능하게(enable)
+	glFrontFace(GL_CCW); // 정면(front face)의 법선 벡터를 반시계(CCW) 방향으로 설정
+	glCullFace(GL_BACK); // 뒷면(back face)를 도태시키기(cull)
 
 	StopRC();
 }
 
 void OglScreen::RenderScene(void)
 {
+}
+
+BOOL OglScreen::Create(int nId, CWnd* pParent)
+{
+	CWnd* pWnd = pParent->GetDlgItem(nId);
+	pWnd->ShowWindow(SW_HIDE);
+	CRect rect;
+	pWnd->GetWindowRect(rect); // 스크린(문서) 좌표계를 기준으로 현재 pWnd의 사각형 영역 얻기
+	pParent->ScreenToClient(rect); // 스크린 좌표계 -> dialog의 client 좌표계로 변환
+	return Create(NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rect, pParent); // 스크린 생성
 }
 
 BOOL OglScreen::Create(LPCTSTR lpszText, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)

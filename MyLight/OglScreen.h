@@ -19,6 +19,7 @@ protected:
 	virtual void RenderScene(void);
 
 public:
+	BOOL Create(int nId, CWnd* pParent);
 	virtual BOOL Create(LPCTSTR lpszText, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID = 0xffff);
 
 	DECLARE_MESSAGE_MAP()
