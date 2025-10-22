@@ -15,7 +15,7 @@ protected:
 	void AdjustPixelFormat(void);
 	void StartRC(void);
 	void StopRC(void);
-	void InitOpenGL(void);
+	virtual void InitOpenGL(void);
 	virtual void RenderScene(void);
 
 public:
