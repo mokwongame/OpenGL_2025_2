@@ -15,6 +15,11 @@ public:
 	COLORREF m_nSphereColor;
 	GLfloat m_sphereAlpha;
 
+	GLfloat m_fps; // frame per second
+	int m_nFrameMs;
+	GLfloat m_ang;
+	GLfloat m_rps;	// rotation per second
+
 protected:
 	void SetLightParam(void);
 	void DefLightParam(void);
@@ -28,5 +33,9 @@ protected:
 	GLfloat m_lightPos[4];		// 광원 위치 (x, y, z, w): w = 0이면 직사광선, w != 0이면 점 광원
 	GLfloat m_mtlEmit[4];		// 물체의 발광(emission) 특성: RGBA
 	GLfloat m_mtlShine;			// 물체의 광택: 값이 높을수록 금속처럼 광택이 남
+public:
+	DECLARE_MESSAGE_MAP()
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 

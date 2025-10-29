@@ -1,11 +1,18 @@
 #include "pch.h"
 #include "MyScreen.h"
 
+#define TIMERID_RENDER	(1)
+
 MyScreen::MyScreen(void)
 {
 	m_nBackColor = DEF_BACK_COLOR;
 	m_nSphereColor = DEF_SPHERE_COLOR;
 	m_sphereAlpha = 1.0f;
+
+	m_fps = 50.;
+	m_nFrameMs = int(1000. / m_fps);
+	m_ang = 0.f;
+	m_rps = 0.1f * 360.f / 1000.f;
 
 	m_pQobj = nullptr;
 	DefLightParam();
@@ -78,8 +85,44 @@ void MyScreen::RenderScene(void)
 	OglScreen::colorrefToRgb(r, g, b, m_nBackColor);
 	glClearColor(r, g, b, 1.0f);
 
+	glPushMatrix();
+	glLoadIdentity();
+	glRotatef(m_ang, 0.f, 1.f, 0.f);
+
 	// 구 그리기
 	OglScreen::colorrefToRgb(r, g, b, m_nSphereColor);
 	glColor4f(r, g, b, m_sphereAlpha); // glColor3f() 써도 됨: alpha = 1인 경우
 	if (m_pQobj) gluSphere(m_pQobj, 200., 30, 30);
+
+	glPopMatrix();
+}
+
+BEGIN_MESSAGE_MAP(MyScreen, OglScreen)
+	ON_WM_TIMER()
+	ON_WM_CREATE()
+END_MESSAGE_MAP()
+
+void MyScreen::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nIDEvent == TIMERID_RENDER)
+	{
+		GLfloat step = m_rps * m_nFrameMs;
+		m_ang += step;
+		if (m_ang > 360.f) m_ang -= 360.f;
+		Invalidate(FALSE);
+	}
+
+	OglScreen::OnTimer(nIDEvent);
+}
+
+int MyScreen::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (OglScreen::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+	SetTimer(TIMERID_RENDER, m_nFrameMs, NULL);
+
+	return 0;
 }
