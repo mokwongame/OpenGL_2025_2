@@ -23,6 +23,16 @@ MyScreen::~MyScreen()
 	if (m_pQobj) gluDeleteQuadric(m_pQobj);
 }
 
+void MyScreen::SetLightAmbient(COLORREF col)
+{
+	GLfloat r, g, b;
+	OglScreen::colorrefToRgb(r, g, b, col);
+	m_lightAmbient[0] = r;
+	m_lightAmbient[1] = g;
+	m_lightAmbient[2] = b;
+	glLightfv(GL_LIGHT0, GL_AMBIENT, m_lightAmbient);
+}
+
 void MyScreen::SetLightParam(void)
 {
 	// ±¤¿ø

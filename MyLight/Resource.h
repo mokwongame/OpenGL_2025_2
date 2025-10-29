@@ -13,6 +13,7 @@
 #define IDC_MFCCOLORBUTTON2             1003
 #define IDC_SLIDER1                     1004
 #define IDC_SLIDER_SPH_COL              1004
+#define IDC_MFCCOLORBUTTON3             1005
 
 // Next default values for new objects
 // 

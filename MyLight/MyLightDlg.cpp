@@ -64,6 +64,7 @@ void CMyLightDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON1, m_btBackColor);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btSphereColor);
 	DDX_Control(pDX, IDC_SLIDER_SPH_COL, m_slSphereColor);
+	DDX_Control(pDX, IDC_MFCCOLORBUTTON3, m_btLightAmbient);
 }
 
 BEGIN_MESSAGE_MAP(CMyLightDlg, CDialogEx)
@@ -113,6 +114,8 @@ BOOL CMyLightDlg::OnInitDialog()
 
 	m_slSphereColor.SetRange(0, SLIDER_MAX);
 	m_slSphereColor.SetPos(SLIDER_MAX);
+
+	m_btLightAmbient.SetColor(DEF_LIGHT_AMBIENT);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -172,6 +175,7 @@ void CMyLightDlg::OnBnClickedButton1()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	m_screen.m_nBackColor = m_btBackColor.GetColor();
 	m_screen.m_nSphereColor = m_btSphereColor.GetColor();
+	m_screen.SetLightAmbient(m_btLightAmbient.GetColor());
 	m_screen.Invalidate(FALSE);
 }
 void CMyLightDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)

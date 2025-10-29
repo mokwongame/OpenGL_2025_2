@@ -3,6 +3,7 @@
 
 #define DEF_BACK_COLOR	RGB(127, 127, 127)
 #define DEF_SPHERE_COLOR	RGB(255, 0, 0)
+#define DEF_LIGHT_AMBIENT	RGB(50, 50, 50)
 
 class MyScreen :
 	public OglScreen
@@ -19,6 +20,8 @@ public:
 	int m_nFrameMs;
 	GLfloat m_ang;
 	GLfloat m_rps;	// rotation per second
+
+	void SetLightAmbient(COLORREF col);
 
 protected:
 	void SetLightParam(void);
