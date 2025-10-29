@@ -13,6 +13,7 @@ public:
 
 	COLORREF m_nBackColor;
 	COLORREF m_nSphereColor;
+	GLfloat m_sphereAlpha;
 
 protected:
 	void SetLightParam(void);
@@ -25,5 +26,7 @@ protected:
 	GLfloat m_lightDiffuse[4]; // diffuse light(확산광): RGBA
 	GLfloat m_lightSpecular[4]; // specular light(직사광): RGBA
 	GLfloat m_lightPos[4];		// 광원 위치 (x, y, z, w): w = 0이면 직사광선, w != 0이면 점 광원
+	GLfloat m_mtlEmit[4];		// 물체의 발광(emission) 특성: RGBA
+	GLfloat m_mtlShine;			// 물체의 광택: 값이 높을수록 금속처럼 광택이 남
 };
 

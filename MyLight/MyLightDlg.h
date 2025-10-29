@@ -37,4 +37,6 @@ public:
 	afx_msg void OnBnClickedButton1();
 	CMFCColorButton m_btBackColor;
 	CMFCColorButton m_btSphereColor;
+	CSliderCtrl m_slSphereColor;
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

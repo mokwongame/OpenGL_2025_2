@@ -12,6 +12,7 @@ protected:
 	HDC m_hDC = NULL;      // OpenGL용 RC를 위한 DC의 핸들(handle)
 	HGLRC m_hRC = NULL;    // OpenGL용 RC(rendering context)의 핸들(handle)
 
+	void SetViewport(void);
 	void AdjustPixelFormat(void);
 	void StartRC(void);
 	void StopRC(void);

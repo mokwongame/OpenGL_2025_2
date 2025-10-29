@@ -12,6 +12,7 @@
 #define new DEBUG_NEW
 #endif
 
+#define SLIDER_MAX	(100)
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 
@@ -31,6 +32,7 @@ protected:
 	// 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -61,6 +63,7 @@ void CMyLightDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON1, m_btBackColor);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btSphereColor);
+	DDX_Control(pDX, IDC_SLIDER_SPH_COL, m_slSphereColor);
 }
 
 BEGIN_MESSAGE_MAP(CMyLightDlg, CDialogEx)
@@ -68,6 +71,7 @@ BEGIN_MESSAGE_MAP(CMyLightDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMyLightDlg::OnBnClickedButton1)
+	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -106,6 +110,9 @@ BOOL CMyLightDlg::OnInitDialog()
 	m_screen.Create(IDC_SCREEN, this);
 	m_btBackColor.SetColor(DEF_BACK_COLOR);
 	m_btSphereColor.SetColor(DEF_SPHERE_COLOR);
+
+	m_slSphereColor.SetRange(0, SLIDER_MAX);
+	m_slSphereColor.SetPos(SLIDER_MAX);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -166,4 +173,17 @@ void CMyLightDlg::OnBnClickedButton1()
 	m_screen.m_nBackColor = m_btBackColor.GetColor();
 	m_screen.m_nSphereColor = m_btSphereColor.GetColor();
 	m_screen.Invalidate(FALSE);
+}
+void CMyLightDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (pScrollBar->GetDlgCtrlID() == IDC_SLIDER_SPH_COL)
+	{
+		int nPos = m_slSphereColor.GetPos();
+		GLfloat alpha = nPos / float(SLIDER_MAX);
+		m_screen.m_sphereAlpha = alpha;
+		m_screen.Invalidate(FALSE);
+	}
+
+	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }

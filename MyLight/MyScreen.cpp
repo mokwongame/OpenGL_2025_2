@@ -5,6 +5,7 @@ MyScreen::MyScreen(void)
 {
 	m_nBackColor = DEF_BACK_COLOR;
 	m_nSphereColor = DEF_SPHERE_COLOR;
+	m_sphereAlpha = 1.0f;
 
 	m_pQobj = nullptr;
 	DefLightParam();
@@ -28,10 +29,16 @@ void MyScreen::SetLightParam(void)
 
 	// material
 	glEnable(GL_COLOR_MATERIAL);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, m_lightAmbient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, m_lightDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, m_lightSpecular);
+	glMaterialfv(GL_FRONT, GL_EMISSION, m_mtlEmit);
+	glMaterialf(GL_FRONT, GL_SHININESS, m_mtlShine);
 }
 
 void MyScreen::DefLightParam(void)
 {
+	// light
 	m_lightAmbient[0] = m_lightAmbient[1] = m_lightAmbient[2] = 0.2f; // RGB 순서
 	m_lightAmbient[3] = 1.0f; // alpha
 	m_lightDiffuse[0] = m_lightDiffuse[1] = m_lightDiffuse[2] = 0.5f; // RGB 순서
@@ -40,6 +47,11 @@ void MyScreen::DefLightParam(void)
 	m_lightSpecular[3] = 1.0f; // alpha
 	m_lightPos[0] = m_lightPos[1] = m_lightPos[2] = 1.0f; // (x, y, z) 순서
 	m_lightPos[3] = 0.0f; // 직사광선(태양광) 선택
+
+	// material
+	m_mtlEmit[0] = m_mtlEmit[1] = m_mtlEmit[2] = 0.0f; // RGB 순서
+	m_mtlEmit[3] = 1.0f; // alpha
+	m_mtlShine = 100.0f;
 }
 
 void MyScreen::InitOpenGL(void)
@@ -52,6 +64,7 @@ void MyScreen::InitOpenGL(void)
 	gluQuadricDrawStyle(m_pQobj, GLU_FILL);
 	gluQuadricNormals(m_pQobj, GLU_SMOOTH);
 	SetLightParam();
+	SetViewport();
 	StopRC();
 }
 
@@ -67,6 +80,6 @@ void MyScreen::RenderScene(void)
 
 	// 구 그리기
 	OglScreen::colorrefToRgb(r, g, b, m_nSphereColor);
-	glColor4f(r, g, b, 1.0f); // glColor3f() 써도 됨: alpha = 1인 경우
-	if (m_pQobj) gluSphere(m_pQobj, 0.5, 30, 30);
+	glColor4f(r, g, b, m_sphereAlpha); // glColor3f() 써도 됨: alpha = 1인 경우
+	if (m_pQobj) gluSphere(m_pQobj, 200., 30, 30);
 }

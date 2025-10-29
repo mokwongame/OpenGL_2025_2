@@ -10,6 +10,27 @@ void OglScreen::colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color
 	b = GetBValue(color) / GLfloat(255);
 }
 
+void OglScreen::SetViewport(void)
+{
+	// viewport 설정
+	CRect rect;
+	GetClientRect(rect);
+	int range = __min(rect.Width(), rect.Height());
+	int diff = abs(rect.Width() - rect.Height());
+	if (rect.Width() >= rect.Height()) glViewport(diff / 2, 0, range, range); // 가로가 긴 경우
+	else glViewport(0, diff / 2, range, range); // 세로가 긴 경우
+
+	// 투영 행렬
+	GLdouble ranHalf = range / 2.;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	// ranHalf - (-ranHalf) = range
+	glOrtho(-ranHalf, ranHalf, -ranHalf, ranHalf, -ranHalf, ranHalf);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 void OglScreen::AdjustPixelFormat(void)
 {
 	// 구조체 초기화
