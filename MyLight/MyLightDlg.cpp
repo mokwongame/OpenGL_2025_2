@@ -65,6 +65,7 @@ void CMyLightDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON2, m_btSphereColor);
 	DDX_Control(pDX, IDC_SLIDER_SPH_COL, m_slSphereColor);
 	DDX_Control(pDX, IDC_MFCCOLORBUTTON3, m_btLightAmbient);
+	DDX_Control(pDX, IDC_SLIDER_AMBIENT, m_slAmbient);
 }
 
 BEGIN_MESSAGE_MAP(CMyLightDlg, CDialogEx)
@@ -114,6 +115,8 @@ BOOL CMyLightDlg::OnInitDialog()
 
 	m_slSphereColor.SetRange(0, SLIDER_MAX);
 	m_slSphereColor.SetPos(SLIDER_MAX);
+	m_slAmbient.SetRange(0, SLIDER_MAX);
+	m_slAmbient.SetPos(SLIDER_MAX);
 
 	m_btLightAmbient.SetColor(DEF_LIGHT_AMBIENT);
 
@@ -186,6 +189,13 @@ void CMyLightDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		int nPos = m_slSphereColor.GetPos();
 		GLfloat alpha = nPos / float(SLIDER_MAX);
 		m_screen.m_sphereAlpha = alpha;
+		m_screen.Invalidate(FALSE);
+	}
+	else if (pScrollBar->GetDlgCtrlID() == IDC_SLIDER_AMBIENT)
+	{
+		int nPos = m_slAmbient.GetPos();
+		GLfloat alpha = nPos / float(SLIDER_MAX);
+		m_screen.m_ambientAlpha = alpha;
 		m_screen.Invalidate(FALSE);
 	}
 

@@ -15,6 +15,7 @@ public:
 	COLORREF m_nBackColor;
 	COLORREF m_nSphereColor;
 	GLfloat m_sphereAlpha;
+	GLfloat m_ambientAlpha;
 
 	GLfloat m_fps; // frame per second
 	int m_nFrameMs;

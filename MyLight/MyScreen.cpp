@@ -14,6 +14,8 @@ MyScreen::MyScreen(void)
 	m_ang = 0.f;
 	m_rps = 0.1f * 360.f / 1000.f;
 
+	m_ambientAlpha = 1.0f;
+
 	m_pQobj = nullptr;
 	DefLightParam();
 }
@@ -30,7 +32,12 @@ void MyScreen::SetLightAmbient(COLORREF col)
 	m_lightAmbient[0] = r;
 	m_lightAmbient[1] = g;
 	m_lightAmbient[2] = b;
+	m_lightAmbient[3] = m_ambientAlpha;
+
+	StartRC();
 	glLightfv(GL_LIGHT0, GL_AMBIENT, m_lightAmbient);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, m_lightAmbient);
+	StopRC();
 }
 
 void MyScreen::SetLightParam(void)
@@ -57,7 +64,7 @@ void MyScreen::DefLightParam(void)
 {
 	// light
 	m_lightAmbient[0] = m_lightAmbient[1] = m_lightAmbient[2] = 0.2f; // RGB 순서
-	m_lightAmbient[3] = 1.0f; // alpha
+	m_lightAmbient[3] = m_ambientAlpha; // alpha
 	m_lightDiffuse[0] = m_lightDiffuse[1] = m_lightDiffuse[2] = 0.5f; // RGB 순서
 	m_lightDiffuse[3] = 1.0f; // alpha
 	m_lightSpecular[0] = m_lightSpecular[1] = m_lightSpecular[2] = 0.9f; // RGB 순서
