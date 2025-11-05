@@ -1,4 +1,4 @@
 chcp 65001
 git add --all
-git commit -m "MyLight 프로젝트 완성"
+git commit -m "MyTexture 프로젝트 시작"
 git push -u origin main
