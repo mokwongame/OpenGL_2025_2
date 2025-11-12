@@ -191,6 +191,7 @@
     <ClInclude Include="MyTextureDlg.h" />
     <ClInclude Include="OglLightMtl.h" />
     <ClInclude Include="OglScreen.h" />
+    <ClInclude Include="OglSphere.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="MyTextureDlg.cpp" />
     <ClCompile Include="OglLightMtl.cpp" />
     <ClCompile Include="OglScreen.cpp" />
+    <ClCompile Include="OglSphere.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -6,17 +6,27 @@ class OglScreen :
 	public CStatic
 {
 public:
+	OglScreen(void);
+
+	COLORREF GetBackColor(void) const { return m_nBackColor; }
+	GLfloat GetBackAlpha(void) const { return m_backAlpha; }
+	void SetBackColor(COLORREF col) { m_nBackColor = col; }
+	void SetBackAlpha(GLfloat alpha) { m_backAlpha = alpha; }
 	static void colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color);
 
 protected:
 	HDC m_hDC = NULL;      // OpenGL용 RC를 위한 DC의 핸들(handle)
 	HGLRC m_hRC = NULL;    // OpenGL용 RC(rendering context)의 핸들(handle)
 
+	COLORREF m_nBackColor;
+	GLfloat m_backAlpha;
+
 	void SetViewport(void);
 	void AdjustPixelFormat(void);
 	void StartRC(void);
 	void StopRC(void);
 	virtual void InitOpenGL(void);
+	virtual void InitRender(void);
 	virtual void RenderScene(void);
 
 public:

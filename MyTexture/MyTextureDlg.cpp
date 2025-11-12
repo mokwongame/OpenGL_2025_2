@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CMyTextureDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CMyTextureDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -154,3 +155,9 @@ HCURSOR CMyTextureDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+void CMyTextureDlg::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_screen.Invalidate(FALSE);
+}

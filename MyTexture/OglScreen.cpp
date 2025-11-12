@@ -2,6 +2,12 @@
 #include "OglScreen.h"
 #include <GL/GLU.h>
 
+OglScreen::OglScreen(void)
+{
+	m_nBackColor = RGB(127, 127, 127);
+	m_backAlpha = 1.0f;
+}
+
 void OglScreen::colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color)
 {
 	// OpenGL 색깔 범위: 0~1, COLORREF 색깔 범위: 0~255
@@ -81,6 +87,17 @@ void OglScreen::InitOpenGL(void)
 	StopRC();
 }
 
+void OglScreen::InitRender(void)
+{
+	GLfloat r, g, b;
+
+	// 초기 설정 + 배경색 설정
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearDepth(1.0f); // 물체는 카메라에서 가장 멀리(1.0f) 있다고 초기화(clear)
+	OglScreen::colorrefToRgb(r, g, b, m_nBackColor);
+	glClearColor(r, g, b, m_backAlpha);
+}
+
 void OglScreen::RenderScene(void)
 {
 }
@@ -132,6 +149,7 @@ void OglScreen::OnPaint()
 	StartRC();
 
 	// OpenGL 코드
+	InitRender();
 	RenderScene();
 
 	::SwapBuffers(m_hDC); // double buffer 때문에 필요

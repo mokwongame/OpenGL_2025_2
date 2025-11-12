@@ -12,11 +12,19 @@ void MyScreen::InitOpenGL(void)
 	m_lightMtl.SetDCRC(m_hDC, m_hRC);
 
 	StartRC();
+	m_sphere.Create();
+	m_lightMtl.SetLightParam();
+	SetViewport();
 	StopRC();
 }
 
 void MyScreen::RenderScene(void)
 {
+	glPushMatrix();
+	glLoadIdentity();
 
+	m_sphere.Draw(200.);
+
+	glPopMatrix();
 }
 
