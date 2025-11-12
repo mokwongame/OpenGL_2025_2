@@ -189,6 +189,7 @@
     <ClInclude Include="MyScreen.h" />
     <ClInclude Include="MyTexture.h" />
     <ClInclude Include="MyTextureDlg.h" />
+    <ClInclude Include="OglCube.h" />
     <ClInclude Include="OglLightMtl.h" />
     <ClInclude Include="OglScreen.h" />
     <ClInclude Include="OglSphere.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="MyScreen.cpp" />
     <ClCompile Include="MyTexture.cpp" />
     <ClCompile Include="MyTextureDlg.cpp" />
+    <ClCompile Include="OglCube.cpp" />
     <ClCompile Include="OglLightMtl.cpp" />
     <ClCompile Include="OglScreen.cpp" />
     <ClCompile Include="OglSphere.cpp" />

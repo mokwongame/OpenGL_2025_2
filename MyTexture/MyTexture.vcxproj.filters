@@ -45,6 +45,9 @@
     <ClInclude Include="OglSphere.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="OglCube.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyTexture.cpp">
@@ -66,6 +69,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="OglSphere.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="OglCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

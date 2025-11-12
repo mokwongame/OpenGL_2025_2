@@ -22,7 +22,7 @@ void OglSphere::Create(void)
 	gluQuadricNormals(m_pQobj, GLU_SMOOTH);
 }
 
-void OglSphere::Draw(GLdouble radius, GLint slice, GLint stack)
+void OglSphere::Draw(GLdouble radius, GLint slice, GLint stack) const
 {
 	if (m_pQobj)
 	{

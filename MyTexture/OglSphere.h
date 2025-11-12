@@ -16,7 +16,7 @@ public:
 		m_alpha = alpha;
 	}
 	void Create(void);
-	void Draw(GLdouble radius, GLint slice = DEF_SPH_SLICE, GLint stack = DEF_SPH_STACK);
+	void Draw(GLdouble radius, GLint slice = DEF_SPH_SLICE, GLint stack = DEF_SPH_STACK) const;
 
 protected:
 	GLUquadric* m_pQobj;
