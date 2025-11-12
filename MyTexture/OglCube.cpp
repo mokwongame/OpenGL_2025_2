@@ -49,5 +49,26 @@ void OglCube::Draw(GLfloat len) const
 	glVertex3f(len, -len, -len);
 	glVertex3f(len, len, -len);
 	glVertex3f(len, len, len);
+	// left facet: 좌면(#3)
+	OglScreen::colorrefToRgb(r, g, b, m_arColor[3]);
+	glColor4f(r, g, b, m_arAlpha[3]);
+	glVertex3f(-len, -len, -len);
+	glVertex3f(-len, -len, len);
+	glVertex3f(-len, len, len);
+	glVertex3f(-len, len, -len);
+	// top facet: 상면(#4)
+	OglScreen::colorrefToRgb(r, g, b, m_arColor[4]);
+	glColor4f(r, g, b, m_arAlpha[4]);
+	glVertex3f(-len, len, len);
+	glVertex3f(len, len, len);
+	glVertex3f(len, len, -len);
+	glVertex3f(-len, len, -len);
+	// bottom facet: 하면(#5)
+	OglScreen::colorrefToRgb(r, g, b, m_arColor[5]);
+	glColor4f(r, g, b, m_arAlpha[5]);
+	glVertex3f(-len, -len, -len);
+	glVertex3f(len, -len, -len);
+	glVertex3f(len, -len, len);
+	glVertex3f(-len, -len, len);
 	glEnd();
 }

@@ -23,6 +23,9 @@ void MyScreen::InitOpenGL(void)
 	m_sphere.Create();
 	m_lightMtl.SetLightParam();
 	SetViewport();
+	// texture 생성
+	glGenTextures(1, &m_texId); // generate textures
+	glBindTexture(GL_TEXTURE_2D, m_texId); // m_texId가 가리키는 텍스터 구조에 설정을 시작함
 	StopRC();
 }
 
@@ -34,7 +37,7 @@ void MyScreen::RenderScene(void)
 	glRotatef(m_ang, 0.0f, 1.0f, 0.0f); // y축을 회전축으로 회전
 
 	//m_sphere.Draw(200.);
-	m_cube.Draw(50.);
+	m_cube.Draw(100.);
 
 	glPopMatrix();
 }

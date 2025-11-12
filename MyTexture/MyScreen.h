@@ -19,6 +19,7 @@ protected:
 	int m_nFrameMs;
 	GLfloat m_ang;
 	GLfloat m_rps;	// rotation per second
+	GLuint m_texId;	// texture ID; 6개가 필요하면 GLuint m_texId[6]
 
 	virtual void InitOpenGL(void);
 	virtual void RenderScene(void);
