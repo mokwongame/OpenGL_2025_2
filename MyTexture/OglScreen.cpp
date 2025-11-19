@@ -2,10 +2,24 @@
 #include "OglScreen.h"
 #include <GL/GLU.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 OglScreen::OglScreen(void)
 {
 	m_nBackColor = RGB(127, 127, 127);
 	m_backAlpha = 1.0f;
+}
+
+void OglScreen::SetTexImage2D(const CString& imageFile)
+{
+	// 비트맵 읽기 -> 텍셀로 사용
+	int wid, ht, chan; // bmp, jpg -> 3(RGB); png, gif -> 4(RGBA)
+	// CStringA: ASCII를 위한 CString
+	unsigned char* data = stbi_load(CStringA(imageFile), &wid, &ht, &chan, 0); // 비트맵 형태의 메모리 할당; ./res/logo.jpg 의미: 현재 폴더(.) 아래에 있는 폴더 res에 있는 logo.jpg
+	if (chan == 3) glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, wid, ht, 0, GL_RGB, GL_UNSIGNED_BYTE, data); // bmp, jpg
+	else if (chan == 4) glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wid, ht, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // png, gif
+	stbi_image_free(data); // 메모리 해제
 }
 
 void OglScreen::colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color)

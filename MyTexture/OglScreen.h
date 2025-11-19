@@ -12,6 +12,7 @@ public:
 	GLfloat GetBackAlpha(void) const { return m_backAlpha; }
 	void SetBackColor(COLORREF col) { m_nBackColor = col; }
 	void SetBackAlpha(GLfloat alpha) { m_backAlpha = alpha; }
+	void SetTexImage2D(const CString& imageFile);
 	static void colorrefToRgb(GLfloat& r, GLfloat& g, GLfloat& b, COLORREF color);
 
 protected:

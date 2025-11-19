@@ -13,6 +13,7 @@ public:
 	OglLightMtl m_lightMtl;
 	OglSphere m_sphere;
 	OglCube m_cube;
+	bool m_bTexMap;
 
 protected:
 	GLfloat m_fps; // frame per second
@@ -20,6 +21,8 @@ protected:
 	GLfloat m_ang;
 	GLfloat m_rps;	// rotation per second
 	GLuint m_texId;	// texture ID; 6개가 필요하면 GLuint m_texId[6]
+
+	void SetTexture2D(void);
 
 	virtual void InitOpenGL(void);
 	virtual void RenderScene(void);

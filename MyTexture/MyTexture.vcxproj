@@ -195,6 +195,7 @@
     <ClInclude Include="OglSphere.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

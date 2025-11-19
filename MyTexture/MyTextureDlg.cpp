@@ -52,6 +52,7 @@ END_MESSAGE_MAP()
 
 CMyTextureDlg::CMyTextureDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MYTEXTURE_DIALOG, pParent)
+	, m_bTexMap(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -59,6 +60,7 @@ CMyTextureDlg::CMyTextureDlg(CWnd* pParent /*=nullptr*/)
 void CMyTextureDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Check(pDX, IDC_CHECK1, m_bTexMap);
 }
 
 BEGIN_MESSAGE_MAP(CMyTextureDlg, CDialogEx)
@@ -66,6 +68,7 @@ BEGIN_MESSAGE_MAP(CMyTextureDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMyTextureDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_CHECK1, &CMyTextureDlg::OnBnClickedCheck1)
 END_MESSAGE_MAP()
 
 
@@ -160,4 +163,11 @@ void CMyTextureDlg::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	m_screen.Invalidate(FALSE);
+}
+
+void CMyTextureDlg::OnBnClickedCheck1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+	m_screen.m_bTexMap = (m_bTexMap) ? true : false;
 }

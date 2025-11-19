@@ -12,6 +12,22 @@ MyScreen::MyScreen(void)
 	m_nFrameMs = int(1000. / m_fps);
 	m_ang = 0.f;
 	m_rps = 0.2f * 360.f / 1000.f;
+
+	m_bTexMap = false;
+}
+
+void MyScreen::SetTexture2D(void)
+{
+	// texture 생성
+	glGenTextures(1, &m_texId); // generate textures
+	glBindTexture(GL_TEXTURE_2D, m_texId); // m_texId가 가리키는 텍스터 구조에 설정을 시작함
+	// texture 설정: m_texId에 따라
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // 확대(텍셀 -> 픽셀)할 때 사용; GL_NEAREST는 빠르지만 픽셀의 정확도가 떨어짐
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // 멀리 있는 물체에는 aliasing(가짜 패턴)이 생길 수있음 -> 방지하려면 mip map 사용
+	// 비트맵을 텍셀로 선택
+	OglScreen::SetTexImage2D(_T("./res/dog.jpg"));
+	// texture 사용 선택
+	glEnable(GL_TEXTURE_2D);
 }
 
 void MyScreen::InitOpenGL(void)
@@ -22,22 +38,24 @@ void MyScreen::InitOpenGL(void)
 	StartRC();
 	m_sphere.Create();
 	m_lightMtl.SetLightParam();
+	SetTexture2D();
 	SetViewport();
-	// texture 생성
-	glGenTextures(1, &m_texId); // generate textures
-	glBindTexture(GL_TEXTURE_2D, m_texId); // m_texId가 가리키는 텍스터 구조에 설정을 시작함
 	StopRC();
 }
 
 void MyScreen::RenderScene(void)
 {
+	if (m_bTexMap) glEnable(GL_TEXTURE_2D);
+	else glDisable(GL_TEXTURE_2D);
+
 	glPushMatrix();
 	glLoadIdentity();
 	glRotatef(m_ang, 1.0f, 0.0f, 0.0f); // x축을 회전축으로 회전
 	glRotatef(m_ang, 0.0f, 1.0f, 0.0f); // y축을 회전축으로 회전
 
 	//m_sphere.Draw(200.);
-	m_cube.Draw(100.);
+	if (m_bTexMap) m_cube.Draw(100., m_texId);
+	else m_cube.Draw(100.);
 
 	glPopMatrix();
 }

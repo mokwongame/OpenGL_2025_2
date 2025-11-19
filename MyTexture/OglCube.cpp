@@ -72,3 +72,42 @@ void OglCube::Draw(GLfloat len) const
 	glVertex3f(-len, -len, len);
 	glEnd();
 }
+
+void OglCube::Draw(GLfloat len, GLuint texId) const
+{
+	glBindTexture(GL_TEXTURE_2D, texId); // texture를 texId로 선택(묶음)
+	glBegin(GL_QUADS);
+	// front facet: 전면(#0)
+	glColor3f(1.f, 1.f, 1.f); // texture mapping할 영역은 흰색으로 설정
+	// 텍셀 위치와 픽셀 위치를 순서대로 연결
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-len, -len, len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(len, -len, len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(len, len, len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-len, len, len);
+	// back facet: 후면(#2)
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(len, -len, -len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-len, -len, -len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-len, len, -len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(len, len, -len);
+	// right facet: 우면(#1)
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(len, -len, len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(len, -len, -len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(len, len, -len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(len, len, len);
+	// left facet: 좌면(#3)
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-len, -len, -len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-len, -len, len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-len, len, len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-len, len, -len);
+	// top facet: 상면(#4)
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-len, len, len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(len, len, len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(len, len, -len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-len, len, -len);
+	// bottom facet: 하면(#5)
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-len, -len, -len);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(len, -len, -len);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(len, -len, len);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-len, -len, len);
+	glEnd();
+}
