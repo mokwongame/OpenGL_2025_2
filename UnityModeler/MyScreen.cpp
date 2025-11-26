@@ -10,6 +10,13 @@ void MyScreen::InitOpenGL(void)
 {
 	OglScreen::InitOpenGL();
 
+	StartRC();
+
+	m_lightMtl.SetLightParam();
+	m_sphere.Create();
+	SetViewport();
+
+	StopRC();
 }
 
 void MyScreen::InitRender(void)
@@ -22,4 +29,6 @@ void MyScreen::RenderScene(void)
 {
 	OglScreen::RenderScene();
 
+	m_sphere.SetRgba(RGB(0, 255, 0));
+	m_sphere.Draw(100.);
 }
