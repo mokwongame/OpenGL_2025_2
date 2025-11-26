@@ -51,6 +51,12 @@
     <ClInclude Include="MyScreen.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CDlgGameObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CDlgLight.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnityModeler.cpp">
@@ -75,6 +81,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MyScreen.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CDlgGameObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CDlgLight.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

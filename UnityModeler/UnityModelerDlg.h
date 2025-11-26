@@ -5,6 +5,8 @@
 #pragma once
 
 #include "MyScreen.h"
+#include "CDlgGameObj.h"
+#include "CDlgLight.h"
 
 // CUnityModelerDlg 대화 상자
 class CUnityModelerDlg : public CDialogEx
@@ -12,6 +14,7 @@ class CUnityModelerDlg : public CDialogEx
 	// 생성입니다.
 public:
 	CUnityModelerDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
+	~CUnityModelerDlg(); // 파괴자, 소멸자
 
 	// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -26,6 +29,10 @@ protected:
 protected:
 	HICON m_hIcon;
 	MyScreen m_screen;
+	CDlgGameObj* m_pDlgGameObj;
+	CDlgLight* m_pDlgLight;
+
+	void SetTabCtrl(void);
 
 	// 생성된 메시지 맵 함수
 	virtual BOOL OnInitDialog();
@@ -35,4 +42,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButton1();
+	CTabCtrl m_tabCtrl;
+	afx_msg void OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
 };

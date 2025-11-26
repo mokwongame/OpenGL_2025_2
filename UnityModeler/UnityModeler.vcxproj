@@ -185,6 +185,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CDlgGameObj.h" />
+    <ClInclude Include="CDlgLight.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MyScreen.h" />
     <ClInclude Include="OglCube.h" />
@@ -199,6 +201,8 @@
     <ClInclude Include="UnityModelerDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDlgGameObj.cpp" />
+    <ClCompile Include="CDlgLight.cpp" />
     <ClCompile Include="MyScreen.cpp" />
     <ClCompile Include="OglCube.cpp" />
     <ClCompile Include="OglLightMtl.cpp" />

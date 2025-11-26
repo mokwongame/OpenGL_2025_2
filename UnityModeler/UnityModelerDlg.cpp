@@ -54,11 +54,23 @@ CUnityModelerDlg::CUnityModelerDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_UNITYMODELER_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	// dialog pointer 초기화
+	m_pDlgGameObj = nullptr;
+	m_pDlgLight = nullptr;
+}
+
+CUnityModelerDlg::~CUnityModelerDlg()
+{
+	// dialog pointer의 메모리 해제
+	if (m_pDlgGameObj) delete m_pDlgGameObj;
+	if (m_pDlgLight) delete m_pDlgLight;
 }
 
 void CUnityModelerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB1, m_tabCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CUnityModelerDlg, CDialogEx)
@@ -66,10 +78,32 @@ BEGIN_MESSAGE_MAP(CUnityModelerDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CUnityModelerDlg::OnBnClickedButton1)
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CUnityModelerDlg::OnSelchangeTab1)
 END_MESSAGE_MAP()
 
 
 // CUnityModelerDlg 메시지 처리기
+
+void CUnityModelerDlg::SetTabCtrl(void)
+{
+	m_tabCtrl.InsertItem(0, _T("Game Object"));
+	m_tabCtrl.InsertItem(1, _T("Light"));
+	m_tabCtrl.SetCurSel(0); // 0번 탭을 현재 선택으로 설정
+
+	// 탭별로 dialog 생성
+	CRect rect;
+	m_tabCtrl.GetClientRect(&rect); // tab control의 사각형 영역 얻기
+	// 0번 탭
+	m_pDlgGameObj = new CDlgGameObj;
+	m_pDlgGameObj->Create(IDD_GAMEOBJ, &m_tabCtrl); // m_pDlgGameObj의 부모를 m_tabCtrl로 선택
+	m_pDlgGameObj->MoveWindow(0, 20, rect.Width(), rect.Height());
+	m_pDlgGameObj->ShowWindow(SW_SHOW);
+	// 1번 탭
+	m_pDlgLight = new CDlgLight;
+	m_pDlgLight->Create(IDD_LIGHT, &m_tabCtrl); // m_pDlgGameObj의 부모를 m_tabCtrl로 선택
+	m_pDlgLight->MoveWindow(0, 20, rect.Width(), rect.Height());
+	m_pDlgLight->ShowWindow(SW_HIDE);
+}
 
 BOOL CUnityModelerDlg::OnInitDialog()
 {
@@ -102,6 +136,7 @@ BOOL CUnityModelerDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	m_screen.Create(IDC_SCREEN, this);
+	SetTabCtrl();
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -160,4 +195,16 @@ void CUnityModelerDlg::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	m_screen.Invalidate(FALSE);
+}
+
+// IDC_TAB1 > TCN_SELCHANGE
+void CUnityModelerDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//if (pNMHDR->idFrom == IDD_GAMEOBJ)
+	//{
+	//	m_pDlgGameObj->ShowWindow(SW_SHOW);
+	//	m_pDlgLight->ShowWindow(SW_HIDE);
+	//}
+	*pResult = 0;
 }
