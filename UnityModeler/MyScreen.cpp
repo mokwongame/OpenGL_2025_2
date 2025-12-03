@@ -37,8 +37,8 @@ void MyScreen::SampleMultiGameObj(void)
 
 	// #2 element
 	ot.m_nType = GameObjType::CUBE;
-	ot.m_nColor = RGB(255, 255, 0);
-	ot.m_alpha = 1.f;
+	ot.m_nColor = RGB(0, 0, 0);
+	ot.m_alpha = -1.f;
 	ot.m_translate = Vector3(100.f, -100.f, 0.f);
 	ot.m_scale = Vector3(2.f, 2.f, 2.f);
 	ot.m_rotate = Vector3(45.f, 45.f, 0.f);

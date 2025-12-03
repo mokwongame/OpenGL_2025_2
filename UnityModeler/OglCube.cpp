@@ -4,15 +4,7 @@
 
 OglCube::OglCube(void)
 {
-	m_arColor[0] = RGB(255, 0, 0);
-	m_arColor[1] = RGB(0, 255, 0);
-	m_arColor[2] = RGB(0, 0, 255);
-	m_arColor[3] = RGB(255, 255, 0);
-	m_arColor[4] = RGB(0, 255, 255);
-	m_arColor[5] = RGB(255, 0, 255);
-
-	for (int i = 0; i < 6; i++)
-		m_arAlpha[i] = 1.0f;
+	SetRgbaDef();
 }
 
 void OglCube::SetRgba(const COLORREF arColor[], const GLfloat arAlpha[])
@@ -26,13 +18,29 @@ void OglCube::SetRgba(const COLORREF arColor[], const GLfloat arAlpha[])
 
 void OglCube::SetRgba(COLORREF col, GLfloat alpha)
 {
-	// alpha < 0이면 원래 색깔 유지
-	if (alpha < 0.f) return;
-	for (int i = 0; i < 6; i++)
+	// alpha < 0이면 디폴트 색깔로 설정
+	if (alpha < 0.f) SetRgbaDef();
+	else
 	{
-		m_arColor[i] = col;
-		m_arAlpha[i] = alpha;
+		for (int i = 0; i < 6; i++)
+		{
+			m_arColor[i] = col;
+			m_arAlpha[i] = alpha;
+		}
 	}
+}
+
+void OglCube::SetRgbaDef(void)
+{
+	m_arColor[0] = RGB(255, 0, 0);
+	m_arColor[1] = RGB(0, 255, 0);
+	m_arColor[2] = RGB(0, 0, 255);
+	m_arColor[3] = RGB(255, 255, 0);
+	m_arColor[4] = RGB(0, 255, 255);
+	m_arColor[5] = RGB(255, 0, 255);
+
+	for (int i = 0; i < 6; i++)
+		m_arAlpha[i] = 1.0f;
 }
 
 void OglCube::Draw(GLfloat len) const
@@ -128,7 +136,7 @@ void OglCube::Draw(const OglTransform& ot)
 	glPushMatrix();
 	glLoadIdentity();
 	ot.Transform();
-	if (ot.m_alpha >= 0.f) SetRgba(ot.m_nColor, ot.m_alpha);
+	SetRgba(ot.m_nColor, ot.m_alpha);
 	DrawDef();
 	glPopMatrix();
 }
