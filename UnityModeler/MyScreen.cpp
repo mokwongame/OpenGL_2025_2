@@ -44,6 +44,15 @@ void MyScreen::SampleMultiGameObj(void)
 	ot.m_rotate = Vector3(45.f, 45.f, 0.f);
 	ar.Add(ot);
 
+	// #3 element
+	ot.m_nType = GameObjType::CYLINDER;
+	ot.m_nColor = RGB(255, 0, 255);
+	ot.m_alpha = 1.f;
+	ot.m_translate = Vector3(0.f, 0.f, 0.f);
+	ot.m_scale = Vector3(1.f, 1.f, 1.f);
+	ot.m_rotate = Vector3(45.f, 0.f, 0.f);
+	ar.Add(ot);
+
 	// 배열의 모든 원소를 렌더링
 	for (int i = 0; i < ar.GetCount(); i++)
 	{
@@ -55,6 +64,9 @@ void MyScreen::SampleMultiGameObj(void)
 			break;
 		case GameObjType::CUBE:
 			m_cube.Draw(elt);
+			break;
+		case GameObjType::CYLINDER:
+			m_cylinder.Draw(elt);
 			break;
 		}
 	}
@@ -68,6 +80,7 @@ void MyScreen::InitOpenGL(void)
 
 	m_lightMtl.SetLightParam();
 	m_sphere.Create();
+	m_cylinder.Create();
 	SetViewport();
 
 	StopRC();

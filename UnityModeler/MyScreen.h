@@ -4,6 +4,7 @@
 #include "OglLightMtl.h"
 #include "OglSphere.h"
 #include "OglCube.h"
+#include "OglCylinder.h"
 
 class MyScreen :
 	public OglScreen
@@ -15,6 +16,7 @@ protected:
 	OglLightMtl m_lightMtl;
 	OglSphere m_sphere;
 	OglCube m_cube;
+	OglCylinder m_cylinder;
 
 	void SampleMultiGameObj(void);
 
