@@ -32,3 +32,18 @@ void OglSphere::Draw(GLdouble radius, GLint slice, GLint stack) const
 		gluSphere(m_pQobj, radius, slice, stack);
 	}
 }
+
+void OglSphere::Draw(const OglTransform& ot)
+{
+	glPushMatrix();
+	glLoadIdentity();
+	ot.Transform();
+	SetRgba(ot.m_nColor, ot.m_alpha);
+	DrawDef();
+	glPopMatrix();
+}
+
+void OglSphere::DrawDef(void)
+{
+	Draw(m_defRad);
+}

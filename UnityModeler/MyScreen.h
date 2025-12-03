@@ -14,6 +14,8 @@ protected:
 	OglLightMtl m_lightMtl;
 	OglSphere m_sphere;
 
+	void SampleMultiGameObj(void);
+
 	virtual void InitOpenGL(void);
 	virtual void InitRender(void);
 	virtual void RenderScene(void);

@@ -189,25 +189,30 @@
     <ClInclude Include="CDlgLight.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MyScreen.h" />
+    <ClInclude Include="ObjFile.h" />
     <ClInclude Include="OglCube.h" />
     <ClInclude Include="OglLightMtl.h" />
     <ClInclude Include="OglScreen.h" />
     <ClInclude Include="OglSphere.h" />
+    <ClInclude Include="OglTransform.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UnityModeler.h" />
     <ClInclude Include="UnityModelerDlg.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDlgGameObj.cpp" />
     <ClCompile Include="CDlgLight.cpp" />
     <ClCompile Include="MyScreen.cpp" />
+    <ClCompile Include="ObjFile.cpp" />
     <ClCompile Include="OglCube.cpp" />
     <ClCompile Include="OglLightMtl.cpp" />
     <ClCompile Include="OglScreen.cpp" />
     <ClCompile Include="OglSphere.cpp" />
+    <ClCompile Include="OglTransform.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

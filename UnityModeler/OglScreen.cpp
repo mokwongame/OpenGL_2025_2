@@ -97,6 +97,7 @@ void OglScreen::InitOpenGL(void)
 	glEnable(GL_CULL_FACE); // 특정 면(face)을 도태시키기(cull)를 가능하게(enable)
 	glFrontFace(GL_CCW); // 정면(front face)의 법선 벡터를 반시계(CCW) 방향으로 설정
 	glCullFace(GL_BACK); // 뒷면(back face)를 도태시키기(cull)
+	glEnable(GL_NORMALIZE); // scale 연산을 할 때 법선 벡터 방향이 바뀌지 않도록 정규화
 
 	StopRC();
 }

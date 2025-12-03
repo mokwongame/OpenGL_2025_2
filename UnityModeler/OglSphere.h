@@ -4,6 +4,8 @@
 #define DEF_SPH_SLICE	(30)
 #define DEF_SPH_STACK	(30)
 
+#include "OglTransform.h"
+
 class OglSphere
 {
 public:
@@ -17,11 +19,14 @@ public:
 	}
 	void Create(void);
 	void Draw(GLdouble radius, GLint slice = DEF_SPH_SLICE, GLint stack = DEF_SPH_STACK) const;
+	void Draw(const OglTransform& ot);
+	void DrawDef(void);
 
 protected:
 	GLUquadric* m_pQobj;
 	COLORREF m_nColor;
 	GLfloat m_alpha;
+	const GLdouble m_defRad = 50.f;
 };
 
 #undef DEF_SPH_SLICE
