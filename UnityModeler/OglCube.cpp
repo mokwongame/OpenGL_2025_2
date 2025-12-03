@@ -24,6 +24,17 @@ void OglCube::SetRgba(const COLORREF arColor[], const GLfloat arAlpha[])
 	}
 }
 
+void OglCube::SetRgba(COLORREF col, GLfloat alpha)
+{
+	// alpha < 0이면 원래 색깔 유지
+	if (alpha < 0.f) return;
+	for (int i = 0; i < 6; i++)
+	{
+		m_arColor[i] = col;
+		m_arAlpha[i] = alpha;
+	}
+}
+
 void OglCube::Draw(GLfloat len) const
 {
 	GLfloat r, g, b;
@@ -110,4 +121,19 @@ void OglCube::Draw(GLfloat len, GLuint texId) const
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(len, -len, len);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(-len, -len, len);
 	glEnd();
+}
+
+void OglCube::Draw(const OglTransform& ot)
+{
+	glPushMatrix();
+	glLoadIdentity();
+	ot.Transform();
+	if (ot.m_alpha >= 0.f) SetRgba(ot.m_nColor, ot.m_alpha);
+	DrawDef();
+	glPopMatrix();
+}
+
+void OglCube::DrawDef(void)
+{
+	Draw(m_defHalfLen);
 }

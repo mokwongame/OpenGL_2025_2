@@ -3,6 +3,7 @@
 #include "OglScreen.h"
 #include "OglLightMtl.h"
 #include "OglSphere.h"
+#include "OglCube.h"
 
 class MyScreen :
 	public OglScreen
@@ -13,6 +14,7 @@ public:
 protected:
 	OglLightMtl m_lightMtl;
 	OglSphere m_sphere;
+	OglCube m_cube;
 
 	void SampleMultiGameObj(void);
 

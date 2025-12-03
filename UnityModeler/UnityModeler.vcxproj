@@ -191,6 +191,7 @@
     <ClInclude Include="MyScreen.h" />
     <ClInclude Include="ObjFile.h" />
     <ClInclude Include="OglCube.h" />
+    <ClInclude Include="OglCylinder.h" />
     <ClInclude Include="OglLightMtl.h" />
     <ClInclude Include="OglScreen.h" />
     <ClInclude Include="OglSphere.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="MyScreen.cpp" />
     <ClCompile Include="ObjFile.cpp" />
     <ClCompile Include="OglCube.cpp" />
+    <ClCompile Include="OglCylinder.cpp" />
     <ClCompile Include="OglLightMtl.cpp" />
     <ClCompile Include="OglScreen.cpp" />
     <ClCompile Include="OglSphere.cpp" />
