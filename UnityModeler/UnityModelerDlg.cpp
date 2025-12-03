@@ -71,6 +71,7 @@ void CUnityModelerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TAB1, m_tabCtrl);
+	DDX_Control(pDX, IDC_LIST1, m_lbGameObj);
 }
 
 BEGIN_MESSAGE_MAP(CUnityModelerDlg, CDialogEx)
@@ -98,6 +99,7 @@ void CUnityModelerDlg::SetTabCtrl(void)
 	m_pDlgGameObj->Create(IDD_GAMEOBJ, &m_tabCtrl); // m_pDlgGameObj의 부모를 m_tabCtrl로 선택
 	m_pDlgGameObj->MoveWindow(0, 20, rect.Width(), rect.Height());
 	m_pDlgGameObj->ShowWindow(SW_SHOW);
+	m_pDlgGameObj->SetLbGameObj(&m_lbGameObj); // m_lbGameObj인 CListBox의 포인터를 CDlgGameObj에 전달
 	// 1번 탭
 	m_pDlgLight = new CDlgLight;
 	m_pDlgLight->Create(IDD_LIGHT, &m_tabCtrl); // m_pDlgGameObj의 부모를 m_tabCtrl로 선택
@@ -197,14 +199,27 @@ void CUnityModelerDlg::OnBnClickedButton1()
 	m_screen.Invalidate(FALSE);
 }
 
-// IDC_TAB1 > TCN_SELCHANGE
+// noti(통지): 메시지의 일정; 자식 -> 부모에게 전달하는 메시지
+// TCN: tab control noti
+// NMHDR: noti message header
+// IDC_TAB_OPT > TCN_SELCHANGE
 void CUnityModelerDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//if (pNMHDR->idFrom == IDD_GAMEOBJ)
-	//{
-	//	m_pDlgGameObj->ShowWindow(SW_SHOW);
-	//	m_pDlgLight->ShowWindow(SW_HIDE);
-	//}
+	if (pNMHDR->idFrom == IDC_TAB_OPT) // IDC_TAB_OPT ID를 가진 자식에게서(idFrom) 오는 통지 메시지(NM)
+	{
+		int nSel = m_tabCtrl.GetCurSel();
+		switch (nSel)
+		{
+		case 0: // game object tab
+			m_pDlgGameObj->ShowWindow(SW_SHOW);
+			m_pDlgLight->ShowWindow(SW_HIDE);
+			break;
+		case 1: // light tab
+			m_pDlgGameObj->ShowWindow(SW_HIDE);
+			m_pDlgLight->ShowWindow(SW_SHOW);
+			break;
+		}
+	}
 	*pResult = 0;
 }

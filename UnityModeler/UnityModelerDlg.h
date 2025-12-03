@@ -44,4 +44,5 @@ public:
 	afx_msg void OnBnClickedButton1();
 	CTabCtrl m_tabCtrl;
 	afx_msg void OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
+	CListBox m_lbGameObj;
 };
